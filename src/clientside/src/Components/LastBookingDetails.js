@@ -9,7 +9,7 @@ export const LastBookingDetails = () => {
   useEffect(() => {
 
     // Make the GET request to fetch the last booking details
-    axios.get(process.env.REACT_APP_APIURL)
+    axios.get(`${process.env.REACT_APP_APIURL}/api/last`)
       .then(response => {
         const lastBookingData = response.data;
         setLastBooking(lastBookingData);
