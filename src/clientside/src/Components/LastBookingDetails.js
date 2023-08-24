@@ -7,9 +7,9 @@ export const LastBookingDetails = () => {
   const [error, setError] = useState(false); // Add state to track error
 
   useEffect(() => {
-
+    const BASE_URL= process.env.REACT_APP_BASE_URL
     // Make the GET request to fetch the last booking details
-    axios.get(`${process.env.REACT_APP_APIURL}/api/last`)
+    axios.get(`${BASE_URL}/api/last`)
       .then(response => {
         const lastBookingData = response.data;
         setLastBooking(lastBookingData);

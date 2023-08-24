@@ -57,6 +57,7 @@ export const BookingForm = () => {
     number: seatNumbers[seatType] || 0
     }));
 
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
 
     const bookingData = {
       movie: selectedMovie,
@@ -66,7 +67,7 @@ export const BookingForm = () => {
     console.log('Booking data:', bookingData);
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_APIURL}/api/bookings`, bookingData);
+      const response = await axios.post(`${BASE_URL}/api/bookings`, bookingData);
       console.log('Backend response:', response.data);
       setSelectedMovie('');
       setSelectedTimeSlot('');
