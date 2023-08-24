@@ -10,7 +10,7 @@ require('dotenv').config();  // Load environment variables from .env
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN, // Use the ALLOWED_ORIGIN from .env
+  origin: 'https://alma-better-book-my-show.vercel.app', // Use the ALLOWED_ORIGIN from .env
   optionsSuccessStatus: 200,
 }));
 

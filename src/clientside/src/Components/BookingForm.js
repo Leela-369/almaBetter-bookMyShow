@@ -42,7 +42,6 @@ export const BookingForm = () => {
     setSeatNumbers(updatedNumbers);
   };
   
-  const postApiBaseURL = process.env.REACT_APP_API_URL
     
   const handleBookNow = async () => {
     if (!selectedMovie || !selectedTimeSlot || selectedSeatTypes.length === 0) {
@@ -67,7 +66,7 @@ export const BookingForm = () => {
     console.log('Booking data:', bookingData);
 
     try {
-      const response = await axios.post(`${postApiBaseURL}/api/bookings`, bookingData);
+      const response = await axios.post('https://almabetter-bookmyshow-backendserver.onrender.com/api/bookings', bookingData);
       console.log('Backend response:', response.data);
       setSelectedMovie('');
       setSelectedTimeSlot('');
