@@ -3,6 +3,7 @@ import { Typography, Container, Box, Button, TextField, styled } from '@mui/mate
 import { LastBookingDetails } from './LastBookingDetails';
 import { grey } from '@mui/material/colors';
 import axios from 'axios'
+require('dotenv').config();
 
 // Styled input using MUI's styling
 const Input = styled(TextField)(({ theme }) => ({

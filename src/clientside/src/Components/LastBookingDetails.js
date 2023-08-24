@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import axios from 'axios';
+require('dotenv').config();
+
 
 export const LastBookingDetails = () => {
   const [lastBooking, setLastBooking] = useState(null);
