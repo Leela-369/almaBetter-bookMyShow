@@ -7,8 +7,9 @@ export const LastBookingDetails = () => {
   const [error, setError] = useState(false); // Add state to track error
 
   useEffect(() => {
+    const getApiBaseURL = process.env.BACKEND_APP_API_URL
     // Make the GET request to fetch the last booking details
-    axios.get('https://almabetter-bookmyshow-backendserver.onrender.com/api/last')
+    axios.get(`${getApiBaseURL}/api/last`)
       .then(response => {
         const lastBookingData = response.data;
         setLastBooking(lastBookingData);
