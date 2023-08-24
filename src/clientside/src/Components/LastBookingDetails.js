@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import axios from 'axios';
-import { BACKEND_APP_API_URL} from 'dotenv'
-
 
 export const LastBookingDetails = () => {
   const [lastBooking, setLastBooking] = useState(null);
   const [error, setError] = useState(false); // Add state to track error
 
   useEffect(() => {
+    const getApiBaseURL = process.env.BACKEND_APP_API_URL
+
     // Make the GET request to fetch the last booking details
-    axios.get(`${BACKEND_APP_API_URL}/api/last`)
+    axios.get(getApiBaseURL)
       .then(response => {
         const lastBookingData = response.data;
         setLastBooking(lastBookingData);
