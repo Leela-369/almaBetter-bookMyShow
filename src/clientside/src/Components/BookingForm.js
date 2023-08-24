@@ -65,10 +65,8 @@ export const BookingForm = () => {
     };
     console.log('Booking data:', bookingData);
 
-    const postApiBaseURL = process.env.BACKEND_APP_API_URL;
-
     try {
-      const response = await axios.post(`${postApiBaseURL}/api/bookings`, bookingData);
+      const response = await axios.post(`${process.env.REACT_APP_APIURL}/api/bookings`, bookingData);
       console.log('Backend response:', response.data);
       setSelectedMovie('');
       setSelectedTimeSlot('');
