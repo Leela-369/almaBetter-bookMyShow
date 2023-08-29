@@ -34,7 +34,7 @@ export const LastBookingDetails = () => {
       <Box sx={{ width: ['auto','auto','12rem'], minHeight: '12rem', border: 2, padding: 3,display:'flex', justifyContent:'center', alignItems:'center', }}>
           <div>
             {/* Display the booking details if lastBooking is not null */}
-            {lastBooking ? (
+            {lastBooking !==null ? (
               <div>
                 <Typography>Last Booking Details:</Typography>
                 <Typography>Movie: {lastBooking?.movie}</Typography>
