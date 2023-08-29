@@ -20,68 +20,88 @@ const Input = styled(TextField)(({ theme }) => ({
 
 
 export const BookingForm = () => {
+  // state for the selecting the movie
   const [selectedMovie, setSelectedMovie] = useState('');
+  // state for the selecting the time slot
   const [selectedTimeSlot, setSelectedTimeSlot] = useState('');
+  // state for the selecting the seatTypes
   const [selectedSeatTypes, setSelectedSeatTypes] = useState([]);
+  // state for the selecting hte seat numbers
   const [seatNumbers, setSeatNumbers] = useState(0);
 
+  //handle for the selecting the movie
   const handleSelectMovie = (movie) => {
     setSelectedMovie(movie);
   };
 
+  // handle for the selecting for the time slot
   const handleSelectTimeSlot = (timeSlot) => {
     setSelectedTimeSlot(timeSlot);
   };
 
+  // handle for selecting the seat Type
   const handleSelectSeatType = (seatType) => {
     setSelectedSeatTypes([...selectedSeatTypes, seatType]);
   };
 
+  // handle for the selecting the seat number change
   const handleNumberChange = (seatType, event) => {
     const updatedNumbers = { ...seatNumbers, [seatType]: parseInt(event.target.value) };
     setSeatNumbers(updatedNumbers);
   };
   
-    
+    // handle for the booking the movie
   const handleBookNow = async () => {
     if (!selectedMovie || !selectedTimeSlot || selectedSeatTypes.length === 0) {
       console.log("Please select all details before booking.");
       return;
     }
     
-
-
+    // create an array of all seat types
     const allSeatTypes = ['A1', 'A2', 'A3', 'A4', 'D1', 'D2'];
+    // Create reservations by mapping through each seat type and constructing objects
     const reservations = allSeatTypes.map(seatType => ({
     seatType,
-    number: seatNumbers[seatType] || 0
+    number: seatNumbers[seatType] || 0 // Use seatNumbers state or default to 0
     }));
 
+    // get the base url from the envinormental variables
     const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-    const bookingData = {
-      movie: selectedMovie,
-      timeSlot: selectedTimeSlot,
-      seatReservations: reservations
-    };
-    console.log('Booking data:', bookingData);
+    // Prepare booking data with selected movie, time slot, and seat reservations
+const bookingData = {
+  movie: selectedMovie,
+  timeSlot: selectedTimeSlot,
+  seatReservations: reservations
+};
 
-    try {
-      const response = await axios.post(`${BASE_URL}/api/bookings`, bookingData);
-      console.log('Backend response:', response.data);
-      setSelectedMovie('');
-      setSelectedTimeSlot('');
-      setSeatNumbers({});
-      setSelectedSeatTypes([])
-    } catch (error) {
-      console.error(error);
-    }
+// Log booking data for debugging
+console.log('Booking data:', bookingData);
+
+try {
+  // Send a POST request to the backend to create a new booking
+  const response = await axios.post(`${BASE_URL}/api/bookings`, bookingData);
+
+  // Log the backend response for debugging
+  console.log('Backend response:', response.data);
+
+  // Reset selected values after successful booking
+  setSelectedMovie('');
+  setSelectedTimeSlot('');
+  setSeatNumbers({});
+  setSelectedSeatTypes([]);
+} catch (error) {
+  // Handle errors by logging the error message
+  console.error(error);
+}
   };
   
 
   return (
     <div>
+      {/* Booking form for booking the movie, time slot, seatType and No of seats  */}
       <Container maxWidth="lg" sx={{ marginTop: '3rem', }}>
+         {/* Heading for the form */}
         <Typography variant='h6'>Book that show!!</Typography>
         <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 10 }}>
           <Box
@@ -236,6 +256,7 @@ export const BookingForm = () => {
                     Select the Seats
                   </Typography>
                 </Box>
+                {/* buttons for the selecting seatTypes and no of seats */}
                 <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                 <Button
                  sx={{
@@ -387,6 +408,7 @@ export const BookingForm = () => {
                 /></Button>
                 </Box>
               </Box>
+              {/* button for booking and send the data to the backend */}
               <Button
                 variant="contained"
                 sx={{
