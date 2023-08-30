@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Typography, Container, Box, Button, TextField, styled } from '@mui/material';
-import { LastBookingDetails } from './LastBookingDetails';
+import {LastBookingDetails}  from './LastBookingDetails';
 import { grey } from '@mui/material/colors';
 import axios from 'axios'
 
@@ -20,6 +20,7 @@ const Input = styled(TextField)(({ theme }) => ({
 
 
 export const BookingForm = () => {
+  const [lastBooking, setLastBooking] = useState(null);
   // state for the selecting the movie
   const [selectedMovie, setSelectedMovie] = useState('');
   // state for the selecting the time slot
@@ -49,13 +50,34 @@ export const BookingForm = () => {
     const updatedNumbers = { ...seatNumbers, [seatType]: parseInt(event.target.value) };
     setSeatNumbers(updatedNumbers);
   };
-  
+
+ // Function to fetch the last booking data from the API.
+ const fetchLastBookingData = async () => {
+  try {
+    // Get the base URL from environment variables.
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
+    // Send a GET request to fetch the last booking data.
+    const response = await axios.get(`${BASE_URL}/api/last`);
+    const lastbookingData = response.data;
+    // Set the fetched data in the 'lastBooking' state.
+    setLastBooking(lastbookingData);
+  } catch (error) {
+    // Handle errors if the API request fails.
+    console.error('Error fetching last booking:', error);
+  }
+};
+  // This useEffect hook runs once when the component is mounted.
+  useEffect(() => {
+    // Fetches the last booking data from the API and sets it in the state.
+    fetchLastBookingData();
+  }, []);
+
     // handle for the booking the movie
   const handleBookNow = async () => {
     if (!selectedMovie || !selectedTimeSlot || selectedSeatTypes.length === 0) {
       console.log("Please select all details before booking.");
       return;
-    }
+    } 
     
     // create an array of all seat types
     const allSeatTypes = ['A1', 'A2', 'A3', 'A4', 'D1', 'D2'];
@@ -90,11 +112,14 @@ try {
   setSelectedTimeSlot('');
   setSeatNumbers({});
   setSelectedSeatTypes([]);
+  fetchLastBookingData()
 } catch (error) {
   // Handle errors by logging the error message
   console.error(error);
 }
   };
+
+  
   
 
   return (
@@ -425,7 +450,7 @@ try {
                 Book Now
               </Button>
             </Box>
-            <LastBookingDetails /> 
+            <LastBookingDetails lastBooking={lastBooking} /> 
           </Box>
         </div>
       </Container>
