@@ -1,8 +1,9 @@
+// Import necessary dependencies from MUI (Material-UI)
 import React from 'react';
 import { Button, TextField, styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-  // Styled input using MUI's styling
+// Define a styled input using MUI's styling
 const Input = styled(TextField)(({ theme }) => ({
   '& .MuiInputBase-input': {
     backgroundColor: theme.palette.mode === 'light' ? '#F3F6F9' : '#1A2027',
@@ -15,10 +16,12 @@ const Input = styled(TextField)(({ theme }) => ({
   },
 }));
 
+// Component for rendering a movie button
 export const MovieButton = ({ movieName, isSelected, onClick }) => {
   return (
     <Button
       sx={{
+        // Define button styles based on selection state
         color: isSelected ? '#33eaff' : grey[900],
         borderColor: isSelected ? '#33eaff' : grey[900],
         boxShadow: isSelected ? '0px 0px 10px #33eaff' : grey[900],
@@ -38,12 +41,12 @@ export const MovieButton = ({ movieName, isSelected, onClick }) => {
   );
 };
 
- 
-
-export const TimeSlotButton = ({ timeSlot, isSelected, onClick}) => {
-  return(
+// Component for rendering a time slot button
+export const TimeSlotButton = ({ timeSlot, isSelected, onClick }) => {
+  return (
     <Button
       sx={{
+        // Define button styles based on selection state
         color: isSelected ? '#33eaff' : grey[900],
         borderColor: isSelected ? '#33eaff' : grey[900],
         boxShadow: isSelected ? '0px 0px 10px #33eaff' : grey[900],
@@ -60,9 +63,10 @@ export const TimeSlotButton = ({ timeSlot, isSelected, onClick}) => {
     >
       {timeSlot}
     </Button>
-  )
+  );
 }
 
+// Component for rendering a seat type button with an input field
 export const SeatTypeButton = ({
   seatType,
   isSelected,
@@ -73,6 +77,7 @@ export const SeatTypeButton = ({
   return (
     <Button
       sx={{
+        // Define button styles based on selection state
         color: isSelected ? '#33eaff' : grey[900],
         borderColor: isSelected ? '#33eaff' : grey[900],
         boxShadow: isSelected ? '0px 0px 10px #33eaff' : grey[900],
@@ -89,6 +94,7 @@ export const SeatTypeButton = ({
       onClick={onClick}
     >
       {seatType}
+      {/* Input field for seat number with min and max limits */}
       <Input
         type="number"
         value={value || 0}
